@@ -5,23 +5,41 @@
     <script src="data_generator.js"></script>
   </head>
   <body>
-    <script>
 
-      $(document).ready(function(){
+    <script>
+// 1) Create a button that refreshes the webpage, or resets i to zero or increments i and resets eventually
+// 1.1) Why won't a button (or any elements) show up on the page?
+      
+      $(document).ready(function(){ 
+
         var $body = $('body');
         $body.html('');
 
+        // Create a button
+        var $butt = $('<button></button>');
+        $butt.text('Next Tweet');
+        $butt.appendTo($body);
+        
+        // Get date and time
+        var today = new Date();
+
+ //instead of a while loop, package code in a function and create a button that increments i and calls the function
         var index = streams.home.length - 1;
         while(index >= 0){
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
+          var $time = $('<div></div>');
           $tweet.text('@' + tweet.user + ': ' + tweet.message);
+          $time.text(today);  //also show when tweet was created
           $tweet.appendTo($body);
+          $time.appendTo($body);
+          $(document.createElement('div'));
           index -= 1;
         }
-
+// when a user name is clicked, a list of all their tweets are shown
       });
 
     </script>
+
   </body>
 </html>
