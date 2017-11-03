@@ -21,9 +21,35 @@
         $butt.appendTo($body);
         
         // Get date and time
-        var today = new Date();
+        //var today = new Date();
 
- //instead of a while loop, package code in a function and create a button that increments i and calls the function
+ //instead of a while loop, package code in a function and create a button that increments i and passes it to the function
+ 
+      $('button').on('click', function() {
+        var today = new Date();
+        var index = streams.home.length - 1;
+        //while(index >= 0){
+          var tweet = streams.home[index];
+          var $tweet = $('<div></div>');
+          var $time = $('<div></div>');
+          $tweet.text('@' + tweet.user + ': ' + tweet.message);
+          today = today;
+          $time.text(today);  //also show when tweet was created
+          $tweet.appendTo($body);
+          $time.appendTo($body);
+          $(document.createElement('div'));
+          index -= 1;
+        //}
+      });
+// when a user name is clicked, a list of all their tweets are shown
+      });
+
+    </script>
+
+  </body>
+</html>
+
+<!-- 
         var index = streams.home.length - 1;
         while(index >= 0){
           var tweet = streams.home[index];
@@ -36,10 +62,4 @@
           $(document.createElement('div'));
           index -= 1;
         }
-// when a user name is clicked, a list of all their tweets are shown
-      });
-
-    </script>
-
-  </body>
-</html>
+-->
