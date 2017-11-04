@@ -25,59 +25,62 @@
         $tweets.appendTo($body);
         $tweets.css({'border':'2px solid black'});
 
-            var $container = ('<div></div>');
-            // $container.addClass('person');
-            // $container.appendTo($tweets);
+
+
         var end = 0;
         // Create a function that is called on button click
         $('.button-main').on('click', function() {
         if (streams.home.length > end) {
-          //$('div').remove(); // uncomment if more than one tweet at a time is added
           var today = new Date();
           var index = streams.home.length - 1;
-          while(index >= end){ //****
-   //add an if statment to check if index is changed, if not give alert saying no new tweets
+          while(index >= end){ 
             var tweet = streams.home[index];
             var userName = tweet.user;
-            
-
 
             var $user = $('<button>@'+userName+'</button>');
-            $user.addClass('user'); //'userName'
-            $user.prependTo($tweets); //$tweets//
-            $('.user').on('click',function() {
-              if(userName === 'mracus') {
-                $('.user').toggle();
-                $('p').toggle(); //'p'//
-                $('.mracus').show();
-              } else if (userName === 'douglascalhoun') {
-                $('p').toggle(); //'p'//
-                $('.douglascalhoun').show();
-              } else if (userName === 'sharksforcheap') {
-                $('p').toggle(); //'p'//
-                $('.sharksforcheap').show();                
-              } else if (userName === 'shawndrost') {
-                $('p').toggle(); //'p'//
-                $('.shawndrost').show();                
-              }
-            });
+            $user.addClass(userName);
 
             var $tweet = $('<p></p>');
             $tweet.addClass(userName);
             $(userName).before($user);
             $tweet.text(tweet.message + today); //added "today" to get current time
-            $tweet.prependTo($tweets); //$tweets//
+            $tweet.prependTo($tweets);
+            $user.prependTo($tweets);
             $tweet.css({'border-bottom':'1px solid gray'});
-            //$(document.createElement('div').appendTo('button')); // comment out to add more than one tweet at a time
             index -= 1;
           }
           end = streams.home.length;
-          } else {alert('No new tweets');}
+          } else {alert('No new tweets yet!');}
         });
-        
-        //give username buttons a generic button class, that when called checks which username user matches
+
+        $('.tweetsFeed').on('click','button', function() {
+          if(this.className === 'mracus') { 
+            $('p').toggle();
+            $('button').toggle();
+            $(this).show();
+            $('.mracus').show();
+          } else if (this.className === 'douglascalhoun') {
+            $('p').toggle();
+            $('button').toggle();
+            $(this).show();
+            $('.douglascalhoun').show();
+          } else if (this.className === 'shawndrost') {
+            $('p').toggle();
+            $('button').toggle();
+            $(this).show();
+            $('.shawndrost').show();
+          } else if (this.className === 'sharksforcheap') {
+            $('p').toggle();
+            $('button').toggle();
+            $(this).show();
+            $('.sharksforcheap').show();
+          } else {
+            alert('User not found.');
+          }
+        });
 
       });
+
     </script>
 
   </body>
