@@ -13,39 +13,69 @@
         $body.html('');
 
         // Create a button
-        /////////////
         var $moreTweets = $('<button></button>');
-        $moreTweets.text('See more');
+        $moreTweets.text('Refresh Feed');
         $moreTweets.addClass('button-main');
         $moreTweets.appendTo($body);
-        $('.button-main').css({'margin-left':'45%','width':'10%'});
-         /////////////
-      function userN(tweet) { // This function adds a user name, with a clickOn function
-          var userName = tweet.user;
-          var $user = $('<p>@'+userName+'</p>');
-          $user.addClass('user');
-          $user.appendTo($body);
-          $('.user').on('click', function() { // make this function filter for username when activated
-            alert(userName);
-          });  
-        }   
-         /////////////
-       // Create a function that is called on button click
-        $('.button-main').on('click', function() { 
+        $('.button-main').css({'margin-left':'42.5%','width':'15%'});
+        
+        // Create section for tweets
+        var $tweets = $('<div></div>');
+        $tweets.addClass('tweetsFeed');
+        $tweets.appendTo($body);
+        $tweets.css({'border':'2px solid black'});
+
+            var $container = ('<div></div>');
+            // $container.addClass('person');
+            // $container.appendTo($tweets);
+        var end = 0;
+        // Create a function that is called on button click
+        $('.button-main').on('click', function() {
+        if (streams.home.length > end) {
           //$('div').remove(); // uncomment if more than one tweet at a time is added
           var today = new Date();
           var index = streams.home.length - 1;
-          while(index >= 0){
+          while(index >= end){ //****
+   //add an if statment to check if index is changed, if not give alert saying no new tweets
             var tweet = streams.home[index];
-            var $tweet = $('<div></div>');
-            $tweet.text(tweet.message + today); //add "today" to get current time
-            userN(tweet); // creates user name tag
-            $tweet.appendTo($body);
-            $(document.createElement('div').appendTo('button')); // comment out to add more than one tweet at a time
-            //$('.tweet.user').css({'border':'2px solid #949599'});
+            var userName = tweet.user;
+            
+
+
+            var $user = $('<button>@'+userName+'</button>');
+            $user.addClass('user'); //'userName'
+            $user.prependTo($tweets); //$tweets//
+            $('.user').on('click',function() {
+              if(userName === 'mracus') {
+                $('.user').toggle();
+                $('p').toggle(); //'p'//
+                $('.mracus').show();
+              } else if (userName === 'douglascalhoun') {
+                $('p').toggle(); //'p'//
+                $('.douglascalhoun').show();
+              } else if (userName === 'sharksforcheap') {
+                $('p').toggle(); //'p'//
+                $('.sharksforcheap').show();                
+              } else if (userName === 'shawndrost') {
+                $('p').toggle(); //'p'//
+                $('.shawndrost').show();                
+              }
+            });
+
+            var $tweet = $('<p></p>');
+            $tweet.addClass(userName);
+            $(userName).before($user);
+            $tweet.text(tweet.message + today); //added "today" to get current time
+            $tweet.prependTo($tweets); //$tweets//
+            $tweet.css({'border-bottom':'1px solid gray'});
+            //$(document.createElement('div').appendTo('button')); // comment out to add more than one tweet at a time
             index -= 1;
           }
+          end = streams.home.length;
+          } else {alert('No new tweets');}
         });
+        
+        //give username buttons a generic button class, that when called checks which username user matches
 
       });
     </script>
