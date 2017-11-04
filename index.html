@@ -8,59 +8,48 @@
 
     <script>
       $(document).ready(function(){ 
-
+      
         var $body = $('body');
         $body.html('');
 
         // Create a button
-        var $butt = $('<button></button>');
-        $butt.text('See more');
-        $butt.addClass('test2');
-        $butt.appendTo($body);
-        // Style the button
-        $('.test2').css({'margin-left':'45%','width':'10%'});
-
+        /////////////
+        var $moreTweets = $('<button></button>');
+        $moreTweets.text('See more');
+        $moreTweets.addClass('button-main');
+        $moreTweets.appendTo($body);
+        $('.button-main').css({'margin-left':'45%','width':'10%'});
+         /////////////
+      function userN(tweet) { // This function adds a user name, with a clickOn function
+          var userName = tweet.user;
+          var $user = $('<p>@'+userName+'</p>');
+          $user.addClass('user');
+          $user.appendTo($body);
+          $('.user').on('click', function() { // make this function filter for username when activated
+            alert(userName);
+          });  
+        }   
+         /////////////
        // Create a function that is called on button click
-      $('button').on('click', function() {
-        $('div').remove(); //remove old tweets to prevent duplicates from accumulating
-        var today = new Date();
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          var $time = $('<div></div>');
-          $time.addClass('test');
-          $tweet.addClass('test');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          today = today;  // Get date and time
-          $time.text(today);  //also show when tweet was created
-          $tweet.appendTo($body);
-          $time.appendTo($body);
-          $(document.createElement('div'));
-          // Add style to tweets
-          $('.test').css({'margin':'0 auto','width':'500px','font-size':'15px','background':'rgba(45,255,255,.15)','border':'2px solid #949599','border-radius':'10%'});
-          index -= 1;
-        }
-      });
-// when a user name is clicked, a list of all their tweets are shown
-      });
+        $('.button-main').on('click', function() { 
+          //$('div').remove(); // uncomment if more than one tweet at a time is added
+          var today = new Date();
+          var index = streams.home.length - 1;
+          while(index >= 0){
+            var tweet = streams.home[index];
+            var $tweet = $('<div></div>');
+            $tweet.text(tweet.message + today); //add "today" to get current time
+            userN(tweet); // creates user name tag
+            $tweet.appendTo($body);
+            $(document.createElement('div').appendTo('button')); // comment out to add more than one tweet at a time
+            //$('.tweet.user').css({'border':'2px solid #949599'});
+            index -= 1;
+          }
+        });
 
+      });
     </script>
 
   </body>
 </html>
 
-<!-- 
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          var $time = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $time.text(today);  //also show when tweet was created
-          $tweet.appendTo($body);
-          $time.appendTo($body);
-          $(document.createElement('div'));
-          index -= 1;
-        }
--->
